@@ -1,0 +1,244 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+        /* style.css */
+        body {
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 40px;
+        }
+
+        .calculator {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            width: 300px;
+        }
+
+        .display {
+            width: 100%;
+            height: 60px;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: right;
+            /* padding: 10px; */
+            border: none;
+            border-radius: 8px;
+            background-color: #fff;
+            color: #000;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .btn {
+            height: 60px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #666;
+        }
+
+        .equal {
+            background-color: #ff9500;
+            grid-row: span 2;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+    </style>
+    <style>
+        input#first {
+            padding: 15px 20px;
+            background-color: cornsilk;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        input#second {
+            padding: 15px 20px;
+            background-color: cornsilk;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        select#operator {
+            padding: 10px 12px;
+            background-color: black;
+            color: white;
+            font-size: 20px;
+        }
+
+        button.btn-cal {
+            background-color: #ff9500;
+            color: white;
+            border: none;
+            padding: 20px 47px;
+            border-radius: 30px;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+            margin: auto;
+            margin-top: 12px;
+        }
+
+        input#result {
+            padding: 15px 20px;
+            background-color: cornsilk;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        input#result {
+            padding: 15px 20px;
+            background-color: black;
+            color: white;
+            font-weight: 800;
+            font-size: 20px;
+            text-align: center;
+            display: flex;
+            margin: auto;
+        }
+        .basic-calculator {
+    background-color: cadetblue;
+    padding: 56px 20px;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled />
+
+        <div class="buttons">
+            <button class="btn" onclick="clearDisplay()">C</button>
+            <button class="btn" onclick="deleteLast()">←</button>
+            <button class="btn" onclick="appendOperator('/')">÷</button>
+            <button class="btn" onclick="appendOperator('*')">×</button>
+
+            <button class="btn" onclick="appendNumber('7')">7</button>
+            <button class="btn" onclick="appendNumber('8')">8</button>
+            <button class="btn" onclick="appendNumber('9')">9</button>
+            <button class="btn" onclick="appendOperator('-')">−</button>
+
+            <button class="btn" onclick="appendNumber('4')">4</button>
+            <button class="btn" onclick="appendNumber('5')">5</button>
+            <button class="btn" onclick="appendNumber('6')">6</button>
+            <button class="btn" onclick="appendOperator('+')">+</button>
+
+            <button class="btn" onclick="appendNumber('1')">1</button>
+            <button class="btn" onclick="appendNumber('2')">2</button>
+            <button class="btn" onclick="appendNumber('3')">3</button>
+            <button class="btn equal" onclick="calculate()">=</button>
+
+            <button class="btn zero" onclick="appendNumber('0')">0</button>
+            <button class="btn" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+    <div class="basic-calculator">
+        <input type="number" id="first" class="first" name="first" />
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="number" id="second" class="second" name="second" />
+        <br />
+        <br />
+        <button onclick="cal()" class="btn-cal">Calculate</button>
+        <br />
+        <br />
+        <input type="text" name="" id="result" readonly="" />
+    </div>
+
+    <script>
+        // script.js
+        let display = document.getElementById('display');
+
+        function appendNumber(number) {
+            display.value += number;
+        }
+
+        function appendOperator(operator) {
+            const lastChar = display.value.slice(-1);
+            if (['+', '-', '*', '/'].includes(lastChar)) {
+                display.value = display.value.slice(0, -1) + operator; // replace last operator
+            } else {
+                display.value += operator;
+            }
+        }
+
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        function deleteLast() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value);
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+
+    </script>
+    <script>
+        function cal() {
+            var op1 = document.getElementById('first').value;
+            var op2 = document.getElementById('second').value;
+            var oper = document.getElementById('operator').value;
+
+
+            // alert(oper);
+
+
+            if (oper == '+') {
+                // var res= op1 + op2;
+                // + is concatenate here, so we will use parseInt to convert into integer
+                var result = parseInt(op1) + parseInt(op2);
+            }
+            if (oper == '-') {
+
+                var result = parseInt(op1) - parseInt(op2);
+            }
+            if (oper == '*') {
+
+                var result = parseInt(op1) * parseInt(op2);
+            }
+            if (oper == '/') {
+
+                var result = parseInt(op1) / parseInt(op2);
+            }
+            document.getElementById('result').value = result;
+        }
+    </script>
+</body>
+
+</html>
